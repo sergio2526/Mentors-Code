@@ -1,0 +1,3 @@
+SQLAlchemy==1.3.23
+mysqlclient
+async-exit-stack
