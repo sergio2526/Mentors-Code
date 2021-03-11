@@ -1,3 +1,7 @@
-SQLAlchemy==1.3.23
+#Si ocurre algun problema instalar las librerias una por una en la terminal dentro de su entorno virtual
+
+fastapi[all] 
+uvicorn
+sqlalchemy
 mysqlclient
 async-exit-stack
