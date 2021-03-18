@@ -2,17 +2,17 @@ from sqlalchemy.orm import Session
 
 from . import models, schemas
 
-#Obtener mentoria por id
+#Consulta mentoria por id
 def get_mentoria(db: Session, mentoria_id: int):
     return db.query(models.Mentoria).filter(models.Mentoria.id == mentoria_id).first()
 
 
-#Obtener todas las mentorias
+#Consulta todas las mentorias
 def get_mentorias(db: Session, skip: int = 0):
     return db.query(models.Mentoria).offset(skip).all()
 
 
-#Obtener mentorias por nombre
+#Consulta mentorias por nombre
 def get_mentoria_by_name(db: Session, name: str):
     return db.query(models.Mentoria).filter(models.Mentoria.name == name).first()
 
@@ -30,12 +30,12 @@ def create_mentoria(db: Session, mentoria: schemas.MentoriaCreate):
     return db_mentoria
 
 
-#Obteniendo tema por id 
-def get_topic(db: Session, topic_id: int):
-    return db.query(models.Topic).filter(models.Topic.id == topic_id).first()
-    
+#Consulta temas por mentoria
+def get_topic_by_mentoria(db: Session, id_mentoria: int):
+    return db.query(models.Topic).filter(models.Topic.owner_id == id_mentoria).all()
 
-#Obteniendo todos los temas
+
+#Consulta todos los temas
 def get_topics(db: Session, skip: int = 0):
     return db.query(models.Topic).offset(skip).all()
 
@@ -49,12 +49,12 @@ def create_mentoria_topic(db: Session, topic: schemas.TopicCreate, mentoria_id: 
     return db_topic
 
 
-#Obteniendo calendario por id
-def get_calender(db: Session, calender_id: int):
-    return db.query(models.Calender).filter(models.Calender.id == calender_id).first()
+#Consulta calendarios por mentorias
+def get_calender_by_mentoria(db: Session, id_mentoria: int):
+    return db.query(models.Calender).filter(models.Calender.owner_id == id_mentoria).all()
 
 
-#Obteniendo todos los calendarios
+#Consulta Obteniendo todos los calendarios
 def get_calenders(db: Session, skip: int = 0):
     return db.query(models.Calender).offset(skip).all()
 
@@ -68,7 +68,7 @@ def create_mentoria_calender(db: Session, calender: schemas.CalenderCreate, ment
     return db_calender
 
 
-#Obteniendo todos los comentarios
+#Consulta Obteniendo todos los comentarios
 def get_comentary(db: Session, skip: int = 0):
     return db.query(models.Comentary).offset(skip).all()
 
@@ -80,4 +80,9 @@ def create_mentoria_comentary(db: Session, comentary: schemas.ComentaryCreate, m
     db.commit()
     db.refresh(db_comentary)
     return db_comentary
+
+
+#Consulta calendarios por mentorias
+def get_comentary_by_mentoria(db: Session, id_mentoria: int):
+    return db.query(models.Comentary).filter(models.Comentary.owner_id == id_mentoria).all()
 
